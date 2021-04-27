@@ -1,13 +1,14 @@
 import { ElementRef, Injectable } from "@angular/core";
-import * as OpenSeadragon from "openseadragon";
+import OpenSeadragon from "openseadragon";
 
-@Injectable({ providedIn: "root" })
+@Injectable()
 export class OsdService {
+  public viewer: OpenSeadragon;
   constructor() {}
 
-  public init(canvas: HTMLCanvasElement): void {
-    new OpenSeadragon({
-      id: "example-custom-tilesource",
+  public init() {
+    this.viewer = OpenSeadragon({
+      id: "osd-layer",
       prefixUrl: "/openseadragon/images/",
       navigatorSizeRatio: 0.25,
       wrapHorizontal: true,
@@ -16,16 +17,9 @@ export class OsdService {
         width: 512 * 256,
         tileSize: 256,
         minLevel: 8,
-        getTileUrl: function(level, x, y) {
-          return (
-            "http://s3.amazonaws.com/com.modestmaps.bluemarble/" +
-            (level - 8) +
-            "-r" +
-            y +
-            "-c" +
-            x +
-            ".jpg"
-          );
+        getTileUrl: function( level, x, y ){
+            return "http://s3.amazonaws.com/com.modestmaps.bluemarble/" +
+                    (level-8) + "-r" + y + "-c" + x + ".jpg";
         }
       }
     });

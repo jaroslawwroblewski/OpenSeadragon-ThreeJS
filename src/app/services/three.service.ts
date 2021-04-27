@@ -17,7 +17,7 @@ export class ThreeService {
   }
 
   public init() {
-    this.setRenderer(this.threeCanvas.nativeElement);
+    //this.setRenderer(this.threeCanvas.nativeElement);
   }
 
   public render(scene): void {
