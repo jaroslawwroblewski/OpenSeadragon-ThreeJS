@@ -4,10 +4,11 @@ import { FormsModule } from "@angular/forms";
 
 import { AppComponent } from "./app.component";
 import { ViewportsGridComponent } from './componentas/viewports-grid/viewports-grid.component';
+import { ViewportComponent } from './componentas/viewport/viewport.component';
 
 @NgModule({
   imports: [BrowserModule, FormsModule],
-  declarations: [AppComponent, ViewportsGridComponent],
+  declarations: [AppComponent, ViewportsGridComponent, ViewportComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule {}
