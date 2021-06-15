@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from "@angular/core";
+import { Component, ElementRef, Input, OnInit, ViewChild } from "@angular/core";
 import { OsdService } from "../../services/osd.service";
 
 @Component({
@@ -8,12 +8,14 @@ import { OsdService } from "../../services/osd.service";
   providers: [OsdService]
 })
 export class ViewportComponent implements OnInit {
+  @Input() viewportId: string;
+  @Input() annotations: any[];
 
   constructor(private osdService: OsdService) {}
 
   ngOnInit() {}
 
   ngAfterViewInit(): void {
-    this.osdService.init();
+    this.osdService.init(this.viewportId);
   }
 }

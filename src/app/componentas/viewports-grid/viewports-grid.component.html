@@ -1,3 +1,7 @@
 <!-- <canvas threeCanvas class="three-canvas"></canvas>
 <canvas #threejsCanvas class="canvas-layer"></canvas> -->
-<app-viewport></app-viewport>
+<div class="viewports">
+  <div class="viewports-item" *ngFor="let viewport of viewports">
+    <app-viewport [id]="viewport.id" [annotations]="viewport.annotations"></app-viewport>
+  </div>
+</div>

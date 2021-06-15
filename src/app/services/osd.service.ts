@@ -1,27 +1,20 @@
-import { ElementRef, Injectable } from "@angular/core";
-import OpenSeadragon from "openseadragon";
+import { ElementRef, Injectable } from '@angular/core';
+import OpenSeadragon from 'openseadragon';
 
 @Injectable()
 export class OsdService {
   public viewer: OpenSeadragon;
   constructor() {}
 
-  public init() {
+  public init(viewportId: string) {
     this.viewer = OpenSeadragon({
-      id: "osd-layer",
-      prefixUrl: "/openseadragon/images/",
+      id: 'viewport-' + viewportId,
+      prefixUrl: '/openseadragon/images/',
       navigatorSizeRatio: 0.25,
       wrapHorizontal: true,
-      tileSources: {
-        height: 512 * 256,
-        width: 512 * 256,
-        tileSize: 256,
-        minLevel: 8,
-        getTileUrl: function( level, x, y ){
-            return "http://s3.amazonaws.com/com.modestmaps.bluemarble/" +
-                    (level-8) + "-r" + y + "-c" + x + ".jpg";
-        }
-      }
+      tileSources:
+        'https://openseadragon.github.io/example-images/duomo/duomo.dzi',
+      showNavigationControl: false
     });
   }
 }
