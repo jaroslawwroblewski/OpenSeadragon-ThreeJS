@@ -27,7 +27,18 @@ export class ViewportComponent implements OnInit {
 
     // init ThreeJS when OSD is ready!
     viewer.addHandler('open', () => {
-      this.threeService.init(this.annotations, this.annotationCanvas.nativeElement)
+      this.threeService.init(
+        this.annotations,
+        this.annotationCanvas.nativeElement,
+        this.boundsInPixels(viewer)
+      );
     });
+  }
+
+  private boundsInPixels(viewer) {
+    const image = viewer?.world.getItemAt(0)
+      ? viewer?.world.getItemAt(0)
+      : viewer.viewport;
+    return image.viewportToImageRectangle(viewer.viewport.getBounds())
   }
 }
