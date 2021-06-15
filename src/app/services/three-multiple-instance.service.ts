@@ -1,12 +1,17 @@
-import { ElementRef, Injectable, NgZone } from "@angular/core";
-import { Scene, WebGLRenderer } from "three";
+import { ElementRef, Injectable, NgZone } from '@angular/core';
+import { Scene, WebGLRenderer } from 'three';
 
-@Injectable({ providedIn: "root" })
+@Injectable({ providedIn: 'root' })
 export class ThreeMultipleInstanceService {
-  private canvas: ElementRef<HTMLCanvasElement>;
   private renderer: WebGLRenderer;
   private scenes: { [key: string]: Scene } = {};
   constructor(private ngZone: NgZone) {}
+
+  public init(annotations: any[], canvas: HTMLCanvasElement): void {
+    this.createScene();
+  }
+
+  private createScene() {}
 
   public render(scene): void {
     if (!scene) return;
@@ -19,9 +24,9 @@ export class ThreeMultipleInstanceService {
       });
     };
     this.ngZone.runOutsideAngular(() =>
-      document.readyState !== "loading"
+      document.readyState !== 'loading'
         ? renderFunction()
-        : window.addEventListener("DOMContentLoaded", renderFunction)
+        : window.addEventListener('DOMContentLoaded', renderFunction)
     );
   }
 }
