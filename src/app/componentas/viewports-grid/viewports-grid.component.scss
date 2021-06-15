@@ -3,8 +3,11 @@
   background: #f5f5f5;
 
   &-item {
+    float:left;
     background: #ffffff;
     width: 25vw;
     height: 25vw;
+    border: 2px solid #f5f5f5;
+    box-sizing: border-box;
   }
 }

@@ -25,6 +25,6 @@ export class ViewportsGridComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    this.threeService.init();
+    // this.threeService.init();
   }
 }

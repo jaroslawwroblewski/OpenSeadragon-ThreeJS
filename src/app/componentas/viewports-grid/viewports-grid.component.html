@@ -2,6 +2,6 @@
 <canvas #threejsCanvas class="canvas-layer"></canvas> -->
 <div class="viewports">
   <div class="viewports-item" *ngFor="let viewport of viewports">
-    <app-viewport [id]="viewport.id" [annotations]="viewport.annotations"></app-viewport>
+    <app-viewport [viewportId]="viewport.id" [annotations]="viewport.annotations"></app-viewport>
   </div>
 </div>
