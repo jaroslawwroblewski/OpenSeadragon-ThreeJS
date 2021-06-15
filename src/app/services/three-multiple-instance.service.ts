@@ -15,20 +15,15 @@ export class ThreeMultipleInstanceService {
   ): void {
     const scene = new Scene();
     this.setCamera(bounds);
+    this.createObjects(scene, annotations);
+    this.render(scene);
   }
 
   private setCamera(bounds) {
     const { x, y, width, height } = bounds;
     this.camera
       ? this.updateCameraSize(this.camera, width, height)
-      : (this.camera = new OrthographicCamera(
-          0,
-          width,
-          0,
-          height,
-          0,
-          20
-        ));
+      : (this.camera = new OrthographicCamera(0, width, 0, height, 0, 20));
 
     this.camera.position.set(x, y, 1);
     this.camera.clearViewOffset();
@@ -44,20 +39,18 @@ export class ThreeMultipleInstanceService {
     camera.bottom = height;
   }
 
-  // public render(scene): void {
-  //   if (!scene) return;
-  //   this.scenes[scene.uuid] = scene;
-  //   const renderFunction = () => {
-  //     this.renderer.clear(false, true, true);
-  //     Object.entries(this.scenes).forEach(([key, scene]) => {
-  //       //this.setViewport(scene.userData.element);
-  //       this.renderer.render(scene, scene.userData.camera);
-  //     });
-  //   };
-  //   this.ngZone.runOutsideAngular(() =>
-  //     document.readyState !== 'loading'
-  //       ? renderFunction()
-  //       : window.addEventListener('DOMContentLoaded', renderFunction)
-  //   );
-  // }
+  private createObjects(scene: Scene, annotations: any[]) {}
+
+  public render(scene): void {
+    // const renderFunction = () => {
+    //   this.renderer.clear(false, true, true);
+    //   Object.entries(this.scenes).forEach(([key, scene]) => {
+    //     //this.setViewport(scene.userData.element);
+    //     this.renderer.render(scene, scene.userData.camera);
+    //   });
+    // };
+    // document.readyState !== 'loading'
+    //     ? renderFunction()
+    //     : window.addEventListener('DOMContentLoaded', renderFunction)
+  }
 }
