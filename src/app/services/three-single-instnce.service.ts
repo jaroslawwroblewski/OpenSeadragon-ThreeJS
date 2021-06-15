@@ -2,13 +2,13 @@ import { ElementRef, Injectable, NgZone } from "@angular/core";
 import { Scene, WebGLRenderer } from "three";
 
 @Injectable({ providedIn: "root" })
-export class ThreeService {
+export class ThreeSingleInstanceService {
   private canvas: ElementRef<HTMLCanvasElement>;
   private renderer: WebGLRenderer;
   private scenes: { [key: string]: Scene } = {};
   constructor(private ngZone: NgZone) {}
 
-  public set threeCanvas(element: ElementRef<HTMLCanvasElement>) {
+public set threeCanvas(element: ElementRef<HTMLCanvasElement>) {
     this.canvas = element;
   }
 

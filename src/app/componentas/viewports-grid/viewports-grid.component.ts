@@ -5,7 +5,7 @@ import {
   OnInit,
   ViewChild
 } from '@angular/core';
-import { ThreeService } from '../../services/three.service';
+import { ThreeMultipleInstanceService } from '../../services/three-multiple-instance.service';
 import { mockViewports, Viewport } from '../../mocks/viewports.mock';
 
 @Component({
@@ -18,7 +18,7 @@ export class ViewportsGridComponent implements OnInit, AfterViewInit {
   public threeCanvas: ElementRef<HTMLCanvasElement>;
   public viewports: Viewport[];
 
-  constructor(private threeService: ThreeService) {}
+  constructor(private threeService: ThreeMultipleInstanceService) {}
 
   ngOnInit() {
     this.viewports = mockViewports;
