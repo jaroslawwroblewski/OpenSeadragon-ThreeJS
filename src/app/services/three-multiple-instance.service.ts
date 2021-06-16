@@ -1,4 +1,4 @@
-import { ElementRef, Injectable, NgZone } from '@angular/core';
+import { ElementRef, Injectable } from '@angular/core';
 import {
   BufferGeometry,
   Scene,
@@ -15,7 +15,7 @@ export class ThreeMultipleInstanceService {
   private scene: Scene;
   private camera: OrthographicCamera;
 
-  constructor(private ngZone: NgZone) {}
+  constructor() {}
 
   public init(
     annotations: any[],
@@ -26,12 +26,12 @@ export class ThreeMultipleInstanceService {
     this.setCamera(bounds);
     this.setRenderer(canvas);
     this.createObjects(annotations);
-    this.render();
   }
 
   public render(): void {
     const renderFunction = () => {
-      this.renderer.clear(false, true, true);
+      console.log(this.scene);
+      //this.renderer.clear(false, true, true);
       this.renderer.render(this.scene, this.camera);
     };
     document.readyState !== 'loading'
@@ -85,5 +85,6 @@ export class ThreeMultipleInstanceService {
     line.geometry.computeBoundingBox();
     line.geometry.computeBoundingSphere();
     this.scene.add(line);
+    this.render();
   }
 }
