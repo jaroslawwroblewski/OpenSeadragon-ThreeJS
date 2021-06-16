@@ -25,13 +25,11 @@ export class ThreeMultipleInstanceService {
     this.setScene();
     this.setCamera(bounds);
     this.setRenderer(canvas);
-    this.createObjects(annotations);
+    this.setObjects(annotations);
   }
 
   public render(): void {
     const renderFunction = () => {
-      console.log(this.scene);
-      //this.renderer.clear(false, true, true);
       this.renderer.render(this.scene, this.camera);
     };
     document.readyState !== 'loading'
@@ -61,6 +59,8 @@ export class ThreeMultipleInstanceService {
       precision: 'highp',
       antialias: true
     });
+    this.renderer.autoClear = true;
+    this.renderer.setPixelRatio(2);
   }
 
   private updateCameraSize(
@@ -72,19 +72,24 @@ export class ThreeMultipleInstanceService {
     camera.bottom = height;
   }
 
-  private createObjects(annotations: any[]): void {
+  private createLine(annotation: any): Line {
+    const { name, color, coordinates } = annotation;
     const geometry = new BufferGeometry().setFromPoints(
-      annotations.map(([x, y]) => new Vector2(x, y))
+      coordinates.map(([x, y]) => new Vector2(x, y))
     );
 
-    const line: Line = new Line(
-      geometry,
-      new LineBasicMaterial({ color: 0x00ff00 })
-    );
+    const line = new Line(geometry, new LineBasicMaterial({ color }));
 
+    line.name = 'line-' + name;
     line.geometry.computeBoundingBox();
     line.geometry.computeBoundingSphere();
-    this.scene.add(line);
+    return line;
+  }
+
+  private setObjects(annotations: any[]): void {
+    annotations.forEach(annotation => {
+      this.scene.add(this.createLine(annotation));
+    });
     this.render();
   }
 }
