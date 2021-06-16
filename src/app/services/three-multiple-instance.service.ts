@@ -4,6 +4,7 @@ import { Scene, OrthographicCamera, WebGLRenderer } from 'three';
 @Injectable({ providedIn: 'root' })
 export class ThreeMultipleInstanceService {
   private renderer: WebGLRenderer;
+  private scene: Scene;
   private camera: OrthographicCamera;
 
   constructor(private ngZone: NgZone) {}
@@ -13,13 +14,28 @@ export class ThreeMultipleInstanceService {
     canvas: HTMLCanvasElement,
     bounds: any
   ): void {
-    const scene = new Scene();
+    this.setScene();
     this.setCamera(bounds);
-    this.createObjects(scene, annotations);
-    this.render(scene);
+    this.setRenderer(canvas);
+    this.createObjects(annotations);
+    this.render();
   }
 
-  private setCamera(bounds) {
+  public render(): void {
+    const renderFunction = () => {
+      this.renderer.clear(false, true, true);
+      this.renderer.render(this.scene, this.camera);
+    };
+    document.readyState !== 'loading'
+      ? renderFunction()
+      : window.addEventListener('DOMContentLoaded', renderFunction);
+  }
+
+  private setScene(): void {
+    this.scene = new Scene();
+  }
+
+  private setCamera(bounds): void {
     const { x, y, width, height } = bounds;
     this.camera
       ? this.updateCameraSize(this.camera, width, height)
@@ -28,6 +44,15 @@ export class ThreeMultipleInstanceService {
     this.camera.position.set(x, y, 1);
     this.camera.clearViewOffset();
     this.camera.updateProjectionMatrix();
+  }
+
+  private setRenderer(canvas: HTMLCanvasElement): void {
+    this.renderer = new WebGLRenderer({
+      canvas,
+      alpha: true,
+      precision: 'highp',
+      antialias: true
+    });
   }
 
   private updateCameraSize(
@@ -39,18 +64,5 @@ export class ThreeMultipleInstanceService {
     camera.bottom = height;
   }
 
-  private createObjects(scene: Scene, annotations: any[]) {}
-
-  public render(scene): void {
-    // const renderFunction = () => {
-    //   this.renderer.clear(false, true, true);
-    //   Object.entries(this.scenes).forEach(([key, scene]) => {
-    //     //this.setViewport(scene.userData.element);
-    //     this.renderer.render(scene, scene.userData.camera);
-    //   });
-    // };
-    // document.readyState !== 'loading'
-    //     ? renderFunction()
-    //     : window.addEventListener('DOMContentLoaded', renderFunction)
-  }
+  private createObjects(annotations: any[]): void {}
 }
