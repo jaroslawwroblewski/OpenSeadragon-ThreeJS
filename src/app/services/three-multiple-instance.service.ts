@@ -1,5 +1,13 @@
 import { ElementRef, Injectable, NgZone } from '@angular/core';
-import { Scene, OrthographicCamera, WebGLRenderer } from 'three';
+import {
+  BufferGeometry,
+  Scene,
+  Line,
+  LineBasicMaterial,
+  OrthographicCamera,
+  Vector2,
+  WebGLRenderer
+} from 'three';
 
 @Injectable({ providedIn: 'root' })
 export class ThreeMultipleInstanceService {
@@ -64,5 +72,18 @@ export class ThreeMultipleInstanceService {
     camera.bottom = height;
   }
 
-  private createObjects(annotations: any[]): void {}
+  private createObjects(annotations: any[]): void {
+    const geometry = new BufferGeometry().setFromPoints(
+      annotations.map(([x, y]) => new Vector2(x, y))
+    );
+
+    const line: Line = new Line(
+      geometry,
+      new LineBasicMaterial({ color: 0x00ff00 })
+    );
+
+    line.geometry.computeBoundingBox();
+    line.geometry.computeBoundingSphere();
+    this.scene.add(line);
+  }
 }
