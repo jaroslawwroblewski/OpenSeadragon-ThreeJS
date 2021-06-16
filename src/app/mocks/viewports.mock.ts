@@ -1,5 +1,6 @@
-const AMOUNT_OF_VIEWPORTS = 4;
+const AMOUNT_OF_VIEWPORTS = 6;
 const AMOUNT_OF_ANNOTATIONS = 100;
+const CIRCLE_SIZE = 200;
 const COLORS = [0x00ff00, 0xe50d9c, 0x2247c2, 0xffff00];
 
 export interface Viewport {
@@ -15,11 +16,10 @@ const circle = (
 ) => {
   let vertArray = [];
   for (let i = 1; i < steps; i++) {
-    const x =
-      centerX + radius * Math.cos(((Math.PI * i) / steps) * 2 - Math.PI / 2);
-    const y =
-      centerY + radius * Math.sin(((Math.PI * i) / steps) * 2 - Math.PI / 2);
-    vertArray.push([x, y]);
+    vertArray.push([
+      centerX + radius * Math.cos(((Math.PI * i) / steps) * 2 - Math.PI / 2),
+      centerY + radius * Math.sin(((Math.PI * i) / steps) * 2 - Math.PI / 2)
+    ]);
   }
   return vertArray;
 };
@@ -29,23 +29,25 @@ const generateCircularAnnotations = (
   amountOfgeometry: number,
   range: number
 ) => {
-  let annotations = [];
+  const annotations = [];
   for (let i = 0; i < amountOfCircles; i++) {
-    let centerX = Math.floor(Math.random() * range);
-    let centerY = Math.floor(Math.random() * range);
-    let color = COLORS[Math.floor(Math.random() * COLORS.length)];
     annotations.push({
       name: Math.random()
         .toString(36)
         .substr(2, 9),
-      color,
-      coordinates: circle(amountOfgeometry, amountOfgeometry, centerX, centerY)
+      color: COLORS[Math.floor(Math.random() * COLORS.length)],
+      coordinates: circle(
+        amountOfgeometry,
+        amountOfgeometry,
+        Math.floor(Math.random() * range),
+        Math.floor(Math.random() * range)
+      )
     });
   }
   return annotations;
 };
 
-const generateViewports = () => {
+const generateViewports = (): Viewport[] => {
   const viewport = [];
   for (let i = 0; i < AMOUNT_OF_VIEWPORTS; i++) {
     viewport.push({
@@ -54,7 +56,7 @@ const generateViewports = () => {
         .substr(2, 9),
       annotations: generateCircularAnnotations(
         AMOUNT_OF_ANNOTATIONS,
-        200,
+        CIRCLE_SIZE,
         13000
       )
     });
@@ -63,22 +65,3 @@ const generateViewports = () => {
 };
 
 export const mockViewports: Viewport[] = generateViewports();
-
-// MODEL:
-// {
-//     id: '093g346',
-//     annotations: [
-//       {
-//         name: 'eefsdfgsdf6',
-//         color: 0x00ff00,
-//         coordinates: [
-//           [12000, 7000],
-//           [3000, 4000],
-//           [0, 0],
-//           [13000, 13000],
-//           [500, 6000],
-//           [4500, 11000]
-//         ]
-//       }
-//     ]
-//   }
