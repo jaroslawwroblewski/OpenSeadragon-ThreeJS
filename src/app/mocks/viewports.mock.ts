@@ -1,7 +1,9 @@
-const AMOUNT_OF_VIEWPORTS = 6;
-const AMOUNT_OF_ANNOTATIONS = 100;
-const CIRCLE_SIZE = 200;
-const COLORS = [0x00ff00, 0xe50d9c, 0x2247c2, 0xffff00];
+import {
+  AMOUNT_OF_VIEWPORTS,
+  AMOUNT_OF_ANNOTATIONS,
+  CIRCLE_SIZE,
+  COLORS
+} from '../core/threejs.settings';
 
 export interface Viewport {
   id: string;

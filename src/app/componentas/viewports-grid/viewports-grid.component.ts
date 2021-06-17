@@ -17,11 +17,14 @@ export class ViewportsGridComponent implements OnInit, AfterViewInit {
   @ViewChild('threejsCanvas', { static: true })
   public threeCanvas: ElementRef<HTMLCanvasElement>;
   public viewports: Viewport[];
+  public isSingleInstances: boolean;
 
   constructor(private threeService: ThreeMultipleInstanceService) {}
 
   ngOnInit() {
     this.viewports = mockViewports;
+    
+    this.isSingleInstances = false;
   }
 
   ngAfterViewInit(): void {
