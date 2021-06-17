@@ -13,7 +13,8 @@ import { InstancesType } from '../../enums/threejs.enum';
 @Component({
   selector: 'app-viewports-grid',
   templateUrl: './viewports-grid.component.html',
-  styleUrls: ['./viewports-grid.component.scss']
+  styleUrls: ['./viewports-grid.component.scss'],
+  providers: [ThreeSingleInstanceService]
 })
 export class ViewportsGridComponent implements OnInit, AfterViewInit {
   @ViewChild('threejsSingleCanvas', { static: true })
@@ -26,7 +27,6 @@ export class ViewportsGridComponent implements OnInit, AfterViewInit {
 
   ngOnInit() {
     this.viewports = mockViewports;
-    
   }
 
   ngAfterViewInit(): void {

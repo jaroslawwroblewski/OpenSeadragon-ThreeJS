@@ -9,7 +9,7 @@ import {
   WebGLRenderer
 } from 'three';
 
-@Injectable({ providedIn: 'root' })
+@Injectable()
 export class ThreeMultipleInstanceService {
   private renderer: WebGLRenderer;
   private scene: Scene;
