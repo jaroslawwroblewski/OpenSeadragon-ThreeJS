@@ -1,6 +1,13 @@
-import { ElementRef, Injectable } from '@angular/core';
-import { Scene, OrthographicCamera, WebGLRenderer } from 'three';
-import { Viewport } from '../../mocks/viewports.mock';
+import { Injectable } from '@angular/core';
+import {
+  BufferGeometry,
+  Scene,
+  Line,
+  LineBasicMaterial,
+  OrthographicCamera,
+  Vector2,
+  WebGLRenderer
+} from 'three';
 
 @Injectable({ providedIn: 'root' })
 export class ThreeSingleInstanceService {

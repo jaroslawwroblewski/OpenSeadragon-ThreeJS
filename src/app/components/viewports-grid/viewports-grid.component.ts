@@ -5,7 +5,7 @@ import {
   OnInit,
   ViewChild
 } from '@angular/core';
-import { ThreeMultipleInstanceService } from '../../services/three-multiple-instance.service';
+import { ThreeSingleInstanceService } from '../../services/three-single-instance.service';
 import { mockViewports, Viewport } from '../../mocks/viewports.mock';
 import { THREEJS_INSTANES } from '../../core/threejs.settings';
 import { InstancesType } from '../../enums/threejs.enum';
@@ -22,7 +22,7 @@ export class ViewportsGridComponent implements OnInit, AfterViewInit {
   public instancesType = InstancesType;
   public viewports: Viewport[];
 
-  constructor(private threeService: ThreeMultipleInstanceService) {}
+  constructor(private threejsSingleService: ThreeSingleInstanceService) {}
 
   ngOnInit() {
     this.viewports = mockViewports;
