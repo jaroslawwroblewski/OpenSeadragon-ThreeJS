@@ -37,14 +37,18 @@ export class ViewportComponent implements OnInit {
       switch(this.threejsInstanceType) { 
         case InstancesType.Multiple: { 
           this.threeMultipleService.init(
-          this.annotations,
-          this.annotationCanvas.nativeElement,
-          this.boundsInPixels(viewer)
+            this.annotations,
+            this.annotationCanvas.nativeElement,
+            this.boundsInPixels(viewer)
         );
         break; 
         } 
         case InstancesType.Single: { 
-            //this.threeSingleService.updateScenes()
+            this.threeSingleService.updateScenes(
+                this.annotations, 
+                this.annotationCanvas.nativeElement, 
+                this.boundsInPixels(viewer)
+              )
             break; 
         } 
         default: { 

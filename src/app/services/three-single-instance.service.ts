@@ -9,11 +9,10 @@ import {
   WebGLRenderer
 } from 'three';
 
-@Injectable({providedIn: 'root'})
+@Injectable({ providedIn: 'root' })
 export class ThreeSingleInstanceService {
-  private canvas: HTMLCanvasElement;
   private renderer: WebGLRenderer;
-  private scenes: Scene[];
+  private scenes: Scene[] = [];
   private amountOfViewports: number;
 
   constructor() {}
@@ -25,8 +24,8 @@ export class ThreeSingleInstanceService {
 
   public updateScenes(
     annotations: any[],
-    bounds,
-    viewportCanvas: HTMLCanvasElement
+    viewportCanvas: HTMLCanvasElement,
+    bounds
   ) {
     const scene = this.setScene(viewportCanvas);
     this.setCamera(scene, bounds);
