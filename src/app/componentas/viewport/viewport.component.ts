@@ -1,6 +1,7 @@
 import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { OsdService } from '../../services/osd.service';
 import { ThreeMultipleInstanceService } from '../../services/three-multiple-instance.service';
+import { InstancesType } from '../../enums/threejs.enum';
 
 @Component({
   selector: 'app-viewport',
@@ -11,8 +12,11 @@ import { ThreeMultipleInstanceService } from '../../services/three-multiple-inst
 export class ViewportComponent implements OnInit {
   @Input() viewportId: string;
   @Input() annotations: any[];
+  @Input() threejsInstanceType: any;
+
   @ViewChild('threejsCanvas', { static: true })
   public annotationCanvas: ElementRef<HTMLCanvasElement>;
+  public instancesType = InstancesType;
 
   constructor(
     private osdService: OsdService,
@@ -27,11 +31,14 @@ export class ViewportComponent implements OnInit {
 
     // init ThreeJS when OSD is ready!
     viewer.addHandler('open', () => {
-      this.threeService.init(
-        this.annotations,
-        this.annotationCanvas.nativeElement,
-        this.boundsInPixels(viewer)
-      );
+      console.log(this.threejsInstanceType);
+      if(this.threejsInstanceType === InstancesType.Multiple) {
+        this.threeService.init(
+          this.annotations,
+          this.annotationCanvas.nativeElement,
+          this.boundsInPixels(viewer)
+        );
+      }
     });
   }
 

@@ -2,7 +2,8 @@
 <canvas #threejsCanvas class="canvas-layer"></canvas> -->
 <div class="viewports">
   <div class="viewports-item" *ngFor="let viewport of viewports">
-    <app-viewport [viewportId]="viewport.id" [annotations]="viewport.annotations"></app-viewport>
+    <app-viewport [viewportId]="viewport.id" [annotations]="viewport.annotations"
+      [threejsInstanceType]="threejsInstanceType"></app-viewport>
   </div>
 </div>
-<canvas *ngIf="threejsInstances === instancesType.Single" #threejsCanvas class="canvas-sinle-layer"></canvas>
+<canvas #threejsSingleCanvas class="canvas-sinle-layer"></canvas>
