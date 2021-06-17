@@ -18,7 +18,7 @@ import { InstancesType } from '../../enums/threejs.enum';
 })
 export class ViewportsGridComponent implements OnInit, AfterViewInit {
   @ViewChild('threejsSingleCanvas', { static: true })
-  public singleAnnotationCanvas: ElementRef<HTMLCanvasElement>;
+  public globalAnnotationCanvas: ElementRef<HTMLCanvasElement>;
   public threejsInstanceType = THREEJS_INSTANES;
   public instancesType = InstancesType;
   public viewports: Viewport[];
@@ -30,6 +30,11 @@ export class ViewportsGridComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    // this.threeService.init();
+    if (this.threejsInstanceType === this.instancesType.Single) {
+      this.threejsSingleService.init(
+        this.viewports.length,
+        this.globalAnnotationCanvas.nativeElement
+      );
+    }
   }
 }

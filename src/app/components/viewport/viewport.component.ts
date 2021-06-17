@@ -31,14 +31,24 @@ export class ViewportComponent implements OnInit {
 
     // init ThreeJS when OSD is ready!
     viewer.addHandler('open', () => {
-      console.log(this.threejsInstanceType);
-      if(this.threejsInstanceType === InstancesType.Multiple) {
-        this.threeService.init(
+
+      switch(this.threejsInstanceType) { 
+        case InstancesType.Multiple: { 
+          this.threeService.init(
           this.annotations,
           this.annotationCanvas.nativeElement,
           this.boundsInPixels(viewer)
         );
-      }
+        break; 
+        } 
+        case InstancesType.Single: { 
+            //statements; 
+            break; 
+        } 
+        default: { 
+            break; 
+        } 
+      } 
     });
   }
 
