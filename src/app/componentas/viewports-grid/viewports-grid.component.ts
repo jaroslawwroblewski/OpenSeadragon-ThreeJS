@@ -7,6 +7,8 @@ import {
 } from '@angular/core';
 import { ThreeMultipleInstanceService } from '../../services/three-multiple-instance.service';
 import { mockViewports, Viewport } from '../../mocks/viewports.mock';
+import { THREEJS_INSTANES } from '../../core/threejs.settings';
+import { InstancesType } from '../../enums/threejs.enum';
 
 @Component({
   selector: 'app-viewports-grid',
@@ -16,15 +18,15 @@ import { mockViewports, Viewport } from '../../mocks/viewports.mock';
 export class ViewportsGridComponent implements OnInit, AfterViewInit {
   @ViewChild('threejsCanvas', { static: true })
   public threeCanvas: ElementRef<HTMLCanvasElement>;
+  public threejsInstances = THREEJS_INSTANES;
+  public instancesType = InstancesType;
   public viewports: Viewport[];
-  public isSingleInstances: boolean;
 
   constructor(private threeService: ThreeMultipleInstanceService) {}
 
   ngOnInit() {
     this.viewports = mockViewports;
     
-    this.isSingleInstances = false;
   }
 
   ngAfterViewInit(): void {

@@ -1,9 +1,6 @@
-export enum ThreejsInstances {
-  Single,
-  Multiple
-}
+import { InstancesType } from '../enums/threejs.enum';
 
-export const THREEJS_INSTANES = ThreejsInstances.Multiple;
+export const THREEJS_INSTANES = InstancesType.Multiple;
 export const AMOUNT_OF_VIEWPORTS = 6;
 export const AMOUNT_OF_ANNOTATIONS = 100;
 export const CIRCLE_SIZE = 200;

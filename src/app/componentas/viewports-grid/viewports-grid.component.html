@@ -5,4 +5,4 @@
     <app-viewport [viewportId]="viewport.id" [annotations]="viewport.annotations"></app-viewport>
   </div>
 </div>
-<canvas #threejsCanvas class="canvas-sinle-layer"></canvas>
+<canvas *ngIf="threejsInstances === instancesType.Single" #threejsCanvas class="canvas-sinle-layer"></canvas>
