@@ -44,12 +44,12 @@ export class ViewportComponent implements OnInit {
         break; 
         } 
         case InstancesType.Single: { 
-            this.threeSingleService.updateScenes(
-                this.annotations, 
-                this.annotationCanvas.nativeElement, 
-                this.boundsInPixels(viewer)
-              )
-            break; 
+          this.threeSingleService.updateScenes(
+              this.annotations, 
+              this.annotationCanvas.nativeElement, 
+              this.boundsInPixels(viewer)
+            );
+        break; 
         } 
         default: { 
             break; 

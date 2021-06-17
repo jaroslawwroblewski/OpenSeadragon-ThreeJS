@@ -1,6 +1,7 @@
 import {
   AMOUNT_OF_VIEWPORTS,
   AMOUNT_OF_ANNOTATIONS,
+  AMOUNT_OF_GEOMETRY_IN_ANNOTATION,
   CIRCLE_SIZE,
   COLORS
 } from '../core/threejs.settings';
@@ -28,7 +29,7 @@ const circle = (
 
 const generateCircularAnnotations = (
   amountOfCircles: number,
-  amountOfgeometry: number,
+  circleSize: number,
   range: number
 ) => {
   const annotations = [];
@@ -39,8 +40,8 @@ const generateCircularAnnotations = (
         .substr(2, 9),
       color: COLORS[Math.floor(Math.random() * COLORS.length)],
       coordinates: circle(
-        amountOfgeometry,
-        amountOfgeometry,
+        circleSize,
+        AMOUNT_OF_GEOMETRY_IN_ANNOTATION,
         Math.floor(Math.random() * range),
         Math.floor(Math.random() * range)
       )
