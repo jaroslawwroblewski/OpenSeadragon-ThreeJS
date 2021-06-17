@@ -16,8 +16,8 @@ import { InstancesType } from '../../enums/threejs.enum';
   styleUrls: ['./viewports-grid.component.scss']
 })
 export class ViewportsGridComponent implements OnInit, AfterViewInit {
-  @ViewChild('threejsCanvas', { static: true })
-  public threeCanvas: ElementRef<HTMLCanvasElement>;
+  @ViewChild('threejsSingleCanvas', { static: true })
+  public singleAnnotationCanvas: ElementRef<HTMLCanvasElement>;
   public threejsInstanceType = THREEJS_INSTANES;
   public instancesType = InstancesType;
   public viewports: Viewport[];

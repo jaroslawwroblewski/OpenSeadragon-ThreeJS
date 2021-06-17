@@ -1,40 +1,100 @@
-import { ElementRef, Injectable, NgZone } from "@angular/core";
-import { Scene, WebGLRenderer } from "three";
+import { ElementRef, Injectable } from '@angular/core';
+import { Scene, OrthographicCamera, WebGLRenderer } from 'three';
+import { Viewport } from '../../mocks/viewports.mock';
 
-@Injectable({ providedIn: "root" })
+@Injectable({ providedIn: 'root' })
 export class ThreeSingleInstanceService {
-  private canvas: ElementRef<HTMLCanvasElement>;
+  private canvas: HTMLCanvasElement;
   private renderer: WebGLRenderer;
-  private scenes: { [key: string]: Scene } = {};
-  constructor(private ngZone: NgZone) {}
+  private scenes: Scene[];
+  private amountOfViewports: number;
 
-public set threeCanvas(element: ElementRef<HTMLCanvasElement>) {
-    this.canvas = element;
+  constructor() {}
+
+  public init(amountOfViewports: number, globalCanvas: HTMLCanvasElement) {
+    this.setRenderer(globalCanvas);
+    this.amountOfViewports = amountOfViewports;
   }
 
-  public get threeCanvas(): ElementRef<HTMLCanvasElement> {
-    return this.canvas;
+  public updateScenes(
+    annotations: any[],
+    bounds,
+    viewportCanvas: HTMLCanvasElement
+  ) {
+    const scene = this.setScene(viewportCanvas);
+    this.setCamera(scene, bounds);
+    this.setObjects(annotations, scene);
+    this.scenes.push(scene);
+    if (this.amountOfViewports === this.scenes.length) {
+      this.render();
+    }
   }
 
-  public init() {
-    //this.setRenderer(this.threeCanvas.nativeElement);
-  }
-
-  public render(scene): void {
-    if (!scene) return;
-    this.scenes[scene.uuid] = scene;
+  public render(): void {
     const renderFunction = () => {
       this.renderer.clear(false, true, true);
-      Object.entries(this.scenes).forEach(([key, scene]) => {
+      this.scenes.forEach(scene => {
         this.setViewport(scene.userData.element);
         this.renderer.render(scene, scene.userData.camera);
       });
     };
-    this.ngZone.runOutsideAngular(() =>
-      document.readyState !== "loading"
-        ? renderFunction()
-        : window.addEventListener("DOMContentLoaded", renderFunction)
+
+    document.readyState !== 'loading'
+      ? renderFunction()
+      : window.addEventListener('DOMContentLoaded', renderFunction);
+  }
+
+  private setScene(canvas: HTMLCanvasElement): Scene {
+    const scene = new Scene();
+    scene.userData.element = canvas;
+    return scene;
+  }
+
+  private setCamera(scene: Scene, bounds): void {
+    const { x, y, width, height } = bounds;
+    scene.userData.camera
+      ? this.updateCameraSize(scene.userData.camera, width, height)
+      : (scene.userData.camera = new OrthographicCamera(
+          0,
+          width,
+          0,
+          height,
+          0,
+          20
+        ));
+
+    scene.userData.camera.position.set(x, y, 1);
+    scene.userData.camera.clearViewOffset();
+    scene.userData.camera.updateProjectionMatrix();
+  }
+
+  private updateCameraSize(
+    camera: OrthographicCamera,
+    width: number,
+    height: number
+  ): void {
+    camera.right = width;
+    camera.bottom = height;
+  }
+
+  private createLine(annotation: any): Line {
+    const { name, color, coordinates } = annotation;
+    const geometry = new BufferGeometry().setFromPoints(
+      coordinates.map(([x, y]) => new Vector2(x, y))
     );
+
+    const line = new Line(geometry, new LineBasicMaterial({ color }));
+
+    line.name = 'line-' + name;
+    line.geometry.computeBoundingBox();
+    line.geometry.computeBoundingSphere();
+    return line;
+  }
+
+  private setObjects(annotations: any[], scene: Scene): void {
+    annotations.forEach(annotation => {
+      scene.add(this.createLine(annotation));
+    });
   }
 
   private setViewport(element): void {
@@ -52,7 +112,7 @@ public set threeCanvas(element: ElementRef<HTMLCanvasElement>) {
     this.renderer = new WebGLRenderer({
       canvas,
       alpha: true,
-      precision: "highp",
+      precision: 'highp',
       antialias: true
     });
     this.renderer.autoClear = false;
