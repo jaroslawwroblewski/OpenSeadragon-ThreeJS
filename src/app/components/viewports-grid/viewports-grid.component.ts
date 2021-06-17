@@ -13,8 +13,7 @@ import { InstancesType } from '../../enums/threejs.enum';
 @Component({
   selector: 'app-viewports-grid',
   templateUrl: './viewports-grid.component.html',
-  styleUrls: ['./viewports-grid.component.scss'],
-  providers: [ThreeSingleInstanceService]
+  styleUrls: ['./viewports-grid.component.scss']
 })
 export class ViewportsGridComponent implements OnInit, AfterViewInit {
   @ViewChild('threejsSingleCanvas', { static: true })

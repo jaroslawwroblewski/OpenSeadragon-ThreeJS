@@ -9,7 +9,7 @@ import {
   WebGLRenderer
 } from 'three';
 
-@Injectable()
+@Injectable({providedIn: 'root'})
 export class ThreeSingleInstanceService {
   private canvas: HTMLCanvasElement;
   private renderer: WebGLRenderer;

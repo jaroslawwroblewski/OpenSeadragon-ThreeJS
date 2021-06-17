@@ -1,5 +1,6 @@
 import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { OsdService } from '../../services/osd.service';
+import { ThreeSingleInstanceService } from '../../services/three-single-instance.service';
 import { ThreeMultipleInstanceService } from '../../services/three-multiple-instance.service';
 import { InstancesType } from '../../enums/threejs.enum';
 
@@ -20,7 +21,8 @@ export class ViewportComponent implements OnInit {
 
   constructor(
     private osdService: OsdService,
-    private threeService: ThreeMultipleInstanceService
+    private threeSingleService: ThreeSingleInstanceService,
+    private threeMultipleService: ThreeMultipleInstanceService
   ) {}
 
   ngOnInit() {}
@@ -34,7 +36,7 @@ export class ViewportComponent implements OnInit {
 
       switch(this.threejsInstanceType) { 
         case InstancesType.Multiple: { 
-          this.threeService.init(
+          this.threeMultipleService.init(
           this.annotations,
           this.annotationCanvas.nativeElement,
           this.boundsInPixels(viewer)
@@ -42,7 +44,7 @@ export class ViewportComponent implements OnInit {
         break; 
         } 
         case InstancesType.Single: { 
-            //statements; 
+            //this.threeSingleService.updateScenes()
             break; 
         } 
         default: { 
