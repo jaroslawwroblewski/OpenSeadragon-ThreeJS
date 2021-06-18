@@ -6,6 +6,7 @@ import { Observable } from 'rxjs';
 @Component({
   selector: 'app-performance-measure',
   templateUrl: './performance-measure.component.html',
+  styleUrls: ['./performance-measure.component.scss'],
 })
 
 export class PerformanceMeasureComponent implements OnInit {
@@ -20,6 +21,8 @@ export class PerformanceMeasureComponent implements OnInit {
     this.performanceMetric$ = this.performanceMetricService.getViewportMetric$(
       this.viewportId
     );
+
+    this.performanceMetric$.subscribe(console.log);
   }
 
 }
