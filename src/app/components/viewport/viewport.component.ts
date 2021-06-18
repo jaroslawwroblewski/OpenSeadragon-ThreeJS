@@ -47,7 +47,8 @@ export class ViewportComponent implements OnInit {
           this.threeSingleService.updateScenes(
               this.annotations, 
               this.annotationCanvas.nativeElement, 
-              this.boundsInPixels(viewer)
+              this.boundsInPixels(viewer),
+              this.viewportId
             );
         break; 
         } 

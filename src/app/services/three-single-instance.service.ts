@@ -27,11 +27,13 @@ export class ThreeSingleInstanceService {
   public updateScenes(
     annotations: any[],
     viewportCanvas: HTMLCanvasElement,
-    bounds
+    bounds,
+    viewportId: string
   ) {
     const scene = this.setScene(viewportCanvas);
     this.setCamera(scene, bounds);
     this.setObjects(annotations, scene);
+    scene.userData.viewportId = viewportId;
     this.scenes.push(scene);
     if (this.amountOfViewports === this.scenes.length) {
       this.render();
@@ -47,12 +49,12 @@ export class ThreeSingleInstanceService {
         // start rendering
         this.renderer.render(scene, scene.userData.camera);
         // rendering performance measurement
+        console.log(scene.userData);
         this.performanceMetricService.addNewMetric({
-            viewportId: scene.userData.viewportId,
-            renderTime: Date.now() - startTime,
-            ...cloneDeep(this.renderer.info),
-
-          });
+          viewportId: scene.userData.viewportId,
+          renderTime: Date.now() - startTime,
+          ...cloneDeep(this.renderer.info)
+        });
       });
     };
 

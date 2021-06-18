@@ -1,13 +1,13 @@
-<div class="performance-measure" *ngIf="performanceMetric$ | async as performanceMetric">
-  <p>ViewportId: {{ performanceMetric.viewportId }}</p>
-  <p>Render time: {{ performanceMetric.renderTime }}ms</p>
-  <p>Calls: {{ performanceMetric.render.calls }}</p>
-  <p>Triangles: {{ performanceMetric.render.triangles }}</p>
-  <p>Frame: {{ performanceMetric.render.frame }}</p>
-  <p>Geometries: {{ performanceMetric.memory.geometries }}</p>
-  <p>Textures: {{ performanceMetric.memory.textures }}</p>
-  <p>Points: {{ performanceMetric.render.points }}</p>
-  <p>Vertices: {{ performanceMetric.render.vertices }}</p>
-  <p>Faces: {{ performanceMetric.render.faces }}</p>
-  <p>Lines: {{ performanceMetric.render.lines }}</p>
-</div>
+<ul class="performance-measure" *ngIf="performanceMetric$ | async as performanceMetric">
+  <li>ViewportId: <span class="performance-measure__value">{{ performanceMetric.viewportId }}</span></li>
+  <li>Render time: <span class="performance-measure__value">{{ performanceMetric.renderTime }}ms</span></li>
+  <li>Calls: <span class="performance-measure__value">{{ performanceMetric.render.calls }}</span></li>
+  <li>Triangles: <span class="performance-measure__value">{{ performanceMetric.render.triangles }}</span></li>
+  <li>Frame: <span class="performance-measure__value">{{ performanceMetric.render.frame }}</span></li>
+  <li>Geometries: <span class="performance-measure__value">{{ performanceMetric.memory.geometries }}</span></li>
+  <li>Textures: <span class="performance-measure__value">{{ performanceMetric.memory.textures }}</span></li>
+  <li>Points: <span class="performance-measure__value">{{ performanceMetric.render.points }}</span></li>
+  <li>Vertices: <span class="performance-measure__value">{{ performanceMetric.render.vertices }}</span></li>
+  <li>Faces: <span class="performance-measure__value">{{ performanceMetric.render.faces }}</span></li>
+  <li>Lines: <span class="performance-measure__value">{{ performanceMetric.render.lines }}</span></li>
+</ul>
