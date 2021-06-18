@@ -8,6 +8,8 @@ import {
   Vector2,
   WebGLRenderer
 } from 'three';
+import { cloneDeep } from 'lodash';
+import { PerformanceMetricService } from './performance-metric.service';
 
 @Injectable()
 export class ThreeMultipleInstanceService {
@@ -15,14 +17,15 @@ export class ThreeMultipleInstanceService {
   private scene: Scene;
   private camera: OrthographicCamera;
 
-  constructor() {}
+  constructor(private performanceMetricService: PerformanceMetricService) {}
 
   public init(
     annotations: any[],
     canvas: HTMLCanvasElement,
-    bounds: any
+    bounds: any,
+    viewportId: string
   ): void {
-    this.setScene();
+    this.setScene(viewportId);
     this.setCamera(bounds);
     this.setRenderer(canvas);
     this.setObjects(annotations);
@@ -30,15 +33,24 @@ export class ThreeMultipleInstanceService {
 
   public render(): void {
     const renderFunction = () => {
+      const startTime = Date.now();
+      // start rendering
       this.renderer.render(this.scene, this.camera);
+      // rendering performance measurement
+        this.performanceMetricService.addNewMetric({
+          viewportId: this.scene.userData.viewportId,
+          renderTime: Date.now() - startTime,
+          ...cloneDeep(this.renderer.info)
+        });
     };
     document.readyState !== 'loading'
       ? renderFunction()
       : window.addEventListener('DOMContentLoaded', renderFunction);
   }
 
-  private setScene(): void {
+  private setScene(viewportId: string): void {
     this.scene = new Scene();
+    this.scene.userData.viewportId = viewportId;
   }
 
   private setCamera(bounds): void {

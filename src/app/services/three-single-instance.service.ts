@@ -27,7 +27,7 @@ export class ThreeSingleInstanceService {
   public updateScenes(
     annotations: any[],
     viewportCanvas: HTMLCanvasElement,
-    bounds,
+    bounds: any,
     viewportId: string
   ) {
     const scene = this.setScene(viewportCanvas);
@@ -42,14 +42,13 @@ export class ThreeSingleInstanceService {
 
   public render(): void {
     const renderFunction = () => {
-      const startTime = Date.now();
       this.renderer.clear(false, true, true);
       this.scenes.forEach(scene => {
+        const startTime = Date.now();
         this.setViewport(scene.userData.element);
         // start rendering
         this.renderer.render(scene, scene.userData.camera);
         // rendering performance measurement
-        console.log(scene.userData);
         this.performanceMetricService.addNewMetric({
           viewportId: scene.userData.viewportId,
           renderTime: Date.now() - startTime,

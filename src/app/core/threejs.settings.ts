@@ -5,7 +5,7 @@ import { InstancesType } from '../enums/threejs.enum';
  *  MULTIPLE - each viewport has its own instance.
  **/
 
-export const THREEJS_INSTANES = InstancesType.Single;
+export const THREEJS_INSTANES = InstancesType.Multiple;
 
 export const AMOUNT_OF_VIEWPORTS = 4;
 export const AMOUNT_OF_ANNOTATIONS = 1000;

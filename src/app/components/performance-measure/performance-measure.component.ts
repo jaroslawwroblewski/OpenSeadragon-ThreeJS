@@ -21,8 +21,6 @@ export class PerformanceMeasureComponent implements OnInit {
     this.performanceMetric$ = this.performanceMetricService.getViewportMetric$(
       this.viewportId
     );
-
-    this.performanceMetric$.subscribe(console.log);
   }
 
 }
