@@ -8,6 +8,8 @@ import {
   Vector2,
   WebGLRenderer
 } from 'three';
+import { cloneDeep } from 'lodash';
+import { PerformanceMetricService } from './performance-metric.service';
 
 @Injectable({ providedIn: 'root' })
 export class ThreeSingleInstanceService {
@@ -15,7 +17,7 @@ export class ThreeSingleInstanceService {
   private scenes: Scene[] = [];
   private amountOfViewports: number;
 
-  constructor() {}
+  constructor(private performanceMetricService: PerformanceMetricService) {}
 
   public init(amountOfViewports: number, globalCanvas: HTMLCanvasElement) {
     this.setRenderer(globalCanvas);
@@ -38,10 +40,19 @@ export class ThreeSingleInstanceService {
 
   public render(): void {
     const renderFunction = () => {
+      const startTime = Date.now();
       this.renderer.clear(false, true, true);
       this.scenes.forEach(scene => {
         this.setViewport(scene.userData.element);
+        // start rendering
         this.renderer.render(scene, scene.userData.camera);
+        // rendering performance measurement
+        this.performanceMetricService.addNewMetric({
+            viewportId: scene.userData.viewportId,
+            renderTime: Date.now() - startTime,
+            ...cloneDeep(this.renderer.info),
+
+          });
       });
     };
 

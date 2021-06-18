@@ -1,0 +1,13 @@
+<div class="performance-measure" *ngIf="performanceMetric$ | async as performanceMetric">
+  <p>ViewportId: {{ performanceMetric.viewportId }}</p>
+  <p>Render time: {{ performanceMetric.renderTime }}ms</p>
+  <p>Calls: {{ performanceMetric.render.calls }}</p>
+  <p>Triangles: {{ performanceMetric.render.triangles }}</p>
+  <p>Frame: {{ performanceMetric.render.frame }}</p>
+  <p>Geometries: {{ performanceMetric.memory.geometries }}</p>
+  <p>Textures: {{ performanceMetric.memory.textures }}</p>
+  <p>Points: {{ performanceMetric.render.points }}</p>
+  <p>Vertices: {{ performanceMetric.render.vertices }}</p>
+  <p>Faces: {{ performanceMetric.render.faces }}</p>
+  <p>Lines: {{ performanceMetric.render.lines }}</p>
+</div>

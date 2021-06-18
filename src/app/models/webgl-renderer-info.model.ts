@@ -1,5 +1,5 @@
 export interface WebGLRendererInfo {
-  viewportId: string;
+  viewportId: string | number;
   renderTime: number;
   memory: {
     geometries: number;

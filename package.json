@@ -12,6 +12,7 @@
     "@angular/platform-browser-dynamic": "^11.2.11",
     "@angular/router": "^11.2.11",
     "@types/three": "^0.127.1",
+    "lodash": "^4.17.21",
     "openseadragon": "^2.4.2",
     "rxjs": "^6.6.7",
     "three": "^0.128.0",
