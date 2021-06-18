@@ -44,7 +44,7 @@ export class ThreeSingleInstanceService {
     const renderFunction = () => {
       this.renderer.clear(false, true, true);
       this.scenes.forEach(scene => {
-        const startTime = Date.now();
+        let startTime = Date.now();
         this.setViewport(scene.userData.element);
         // start rendering
         this.renderer.render(scene, scene.userData.camera);
