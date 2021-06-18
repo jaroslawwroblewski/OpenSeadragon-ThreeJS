@@ -7,7 +7,7 @@ export class OsdService {
 
   public init(viewportId: string): OpenSeadragon {
     return new OpenSeadragon({
-      id: 'viewport-' + viewportId,
+      id: viewportId,
       prefixUrl: 'https://openseadragon.github.io/openseadragon/images/',
       tileSources:
         'https://openseadragon.github.io/example-images/duomo/duomo.dzi',
